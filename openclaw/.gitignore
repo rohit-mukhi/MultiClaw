@@ -1,1 +1,4 @@
 .env
+# Ignore contents of workspace directories
+openclaw/workspace/*
+!openclaw/workspace/.gitkeep
