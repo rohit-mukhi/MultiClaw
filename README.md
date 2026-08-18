@@ -9,16 +9,16 @@ Use: git clone --depth 1 <github-link>
 
 Then place the respective docker files in their places.
 
-The OpenClaw directory must have these file in these positions:
-./.env (Update it with your API keys and Telegram bot tokens)
-./docker-compose.yml
+The OpenClaw directory must have these file in these positions:  
+./.env (Update it with your API keys and Telegram bot tokens)  
+./docker-compose.yml  
 ~/.openclaw/openclaw.json
 
 The multica directory must have these files in their respective places:
-
-./env (No update required here)
-./docker-compose.yml
-./docker/Dockerfile.daemon
+  
+./env (No update required here)  
+./docker-compose.yml  
+./docker/Dockerfile.daemon  
 ./daemon-entrypoint.sh
 
 ### Fix Workspace Permissions: Users must ensure local workspace directories are writeable by non-root container users (uid 1000).
