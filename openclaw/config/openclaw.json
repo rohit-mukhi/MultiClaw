@@ -1,0 +1,270 @@
+{
+  "logging": {
+  	"level": "silent"
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "groq/llama-3.3-70b-versatile",
+        "fallbacks": [
+          "groq/llama-3.1-8b-instant",
+          "openrouter/free"
+        ]
+      },
+      "compaction": {
+        "reserveTokensFloor": 2000,
+        "memoryFlush": {
+          "enabled": true
+        }
+      },
+      "memorySearch": {
+        "enabled": false
+      },
+      "models": {
+        "groq/llama-3.3-70b-versatile": {},
+        "groq/llama-3.1-8b-instant": {},
+        "openrouter/free": {}
+      }
+    },
+    "list": [
+      {
+        "id": "nova",
+        "workspace": "/home/node/.openclaw/workspace",
+        "skills": [],
+        "tools": {
+            "deny": [
+                "music_generate",
+                "video_generate",
+                "tts",
+                "image_generate",
+                "image",
+                "canvas",
+                "browser",
+                "cron",
+                "nodes",
+                "sessions_spawn",
+                "sessions_send",
+                "sessions_list",
+                "sessions_history",
+                "sessions_yield",
+                "session_status",
+                "subagents",
+                "pdf",
+                "exec",
+                "apply_patch",
+                "process",
+                "read",
+                "edit",
+                "write",
+                "message",
+                "gateway",
+                "agents_list",
+                "get_goal",
+                "create_goal",
+                "update_goal",
+                "skill_workshop",
+                "file_fetch",
+                "dir_list",
+                "dir_fetch",
+                "file_write",
+                "node_inference"
+            ]
+        }
+      },
+      {
+        "id": "iris",
+        "workspace": "/home/node/.openclaw/workspace-iris"
+      },
+      {
+        "id": "rex",
+        "workspace": "/home/node/.openclaw/workspace-rex"
+      },
+      {
+        "id": "sage",
+        "workspace": "/home/node/.openclaw/workspace-sage"
+      }
+    ]
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.7.1",
+    "lastTouchedAt": "2026-08-12T16:55:24.654Z"
+  },
+  "plugins": {
+    "entries": {
+      "nvidia": {
+        "enabled": false
+      },
+      "duckduckgo": {
+        "config": {
+          "webSearch": {
+            "region": "us-en",
+            "safeSearch": "moderate"
+          }
+        },
+        "enabled": true
+      },
+      "groq": {
+        "enabled": true
+      },
+      "telegram": {
+        "enabled": true
+      }
+    }
+  },
+  "skills": {
+    "entries": {
+      "1password": {
+        "enabled": false
+      },
+      "blogwatcher": {
+        "enabled": false
+      },
+      "blucli": {
+        "enabled": false
+      },
+      "camsnap": {
+        "enabled": false
+      },
+      "coding-agent": {
+        "enabled": false
+      },
+      "eightctl": {
+        "enabled": false
+      },
+      "gemini": {
+        "enabled": false
+      },
+      "gh-issues": {
+        "enabled": false
+      },
+      "gifgrep": {
+        "enabled": false
+      },
+      "github": {
+        "enabled": false
+      },
+      "gog": {
+        "enabled": false
+      },
+      "goplaces": {
+        "enabled": false
+      },
+      "himalaya": {
+        "enabled": false
+      },
+      "mcporter": {
+        "enabled": false
+      },
+      "nano-pdf": {
+        "enabled": false
+      },
+      "obsidian": {
+        "enabled": false
+      },
+      "openai-whisper": {
+        "enabled": false
+      },
+      "openai-whisper-api": {
+        "enabled": false
+      },
+      "openhue": {
+        "enabled": false
+      },
+      "oracle": {
+        "enabled": false
+      },
+      "ordercli": {
+        "enabled": false
+      },
+      "sag": {
+        "enabled": false
+      },
+      "session-logs": {
+        "enabled": false
+      },
+      "sherpa-onnx-tts": {
+        "enabled": false
+      },
+      "songsee": {
+        "enabled": false
+      },
+      "sonoscli": {
+        "enabled": false
+      },
+      "spotify-player": {
+        "enabled": false
+      },
+      "summarize": {
+        "enabled": false
+      },
+      "tmux": {
+        "enabled": false
+      },
+      "trello": {
+        "enabled": false
+      },
+      "video-frames": {
+        "enabled": false
+      },
+      "xurl": {
+        "enabled": false
+      }
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-08-11T17:54:18.031Z",
+    "lastRunVersion": "2026.6.34",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "gateway": {
+    "mode": "local"
+  },
+  "channels": {
+    "telegram": {
+      "botToken": "YOUR_TELEGRAM_BOT_TOKEN"
+    }
+  },
+  "commands": {
+    "ownerAllowFrom": [
+      "telegram:YOUR_TELEGRAM_ID"
+    ]
+  },
+  "env": {
+    "vars": {
+      "OPENROUTER_API_KEY": "YOUR_OPENROUTER_API_KEY",
+      "GROQ_API_KEY": "YOUR_GROQ_API_KEY"
+    },
+    "OPENROUTER_API_KEY": "YOUR_OPENROUTER_API_KEY",
+    "GROQ_API_KEY": "YOUR_GROQ_API_KEY"
+  },
+  "models": {
+    "providers": {
+      "openrouter": {
+        "apiKey": "YOUR_OPENROUTER_API_KEY"
+      },
+      "groq": {
+        "apiKey": "YOUR_GROQ_API_KEY",
+        "models": [
+          {
+            "id": "llama-3.3-70b-versatile",
+            "name": "llama-3.3-70b-versatile"
+          },
+          {
+            "id": "llama-3.1-8b-instant",
+            "name": "llama-3.1-8b-instant"
+          }
+        ],
+        "baseUrl": "https://api.groq.com/openai/v1",
+        "api": "openai-completions"
+      }
+    }
+  },
+  "tools": {
+    "web": {
+      "search": {
+        "provider": "duckduckgo"
+      }
+    }
+  }
+}
