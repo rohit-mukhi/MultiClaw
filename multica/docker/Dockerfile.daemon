@@ -1,0 +1,37 @@
+ARG OPENCLAW_IMAGE=openclaw/openclaw:latest
+FROM ${OPENCLAW_IMAGE}
+USER root
+# Download and install the multica CLI binary
+ARG MULTICA_VERSION=latest
+RUN set -eux; \
+    ARCH="$(uname -m)"; \
+    case "$ARCH" in \
+      x86_64)  ARCH="amd64" ;; \
+      aarch64) ARCH="arm64" ;; \
+      *) echo "Unsupported arch: $ARCH" && exit 1 ;; \
+    esac; \
+    if [ "$MULTICA_VERSION" = "latest" ]; then \
+      MULTICA_VERSION="$(curl -fsSI https://github.com/multica-ai/multica/releases/latest \
+        | grep -i '^location:' | sed 's/.*tag\///' | tr -d '\r\n')"; \
+    fi; \
+    VERSION_NUM="${MULTICA_VERSION#v}"; \
+    curl -fsSL "https://github.com/multica-ai/multica/releases/download/${MULTICA_VERSION}/multica-cli-${VERSION_NUM}-linux-${ARCH}.tar.gz" \
+      | tar -xz -C /usr/local/bin multica; \
+    chmod +x /usr/local/bin/multica
+# Install gosu for privilege dropping (chown volume then drop to node user)
+RUN apt-get update -qq && apt-get install -y --no-install-recommends gosu && rm -rf /var/lib/apt/lists/*
+# Root init wrapper: fixes volume ownership then drops to node user
+RUN printf '#!/bin/sh\nchown -R node:node /home/node/.multica 2>/dev/null || true\nexec gosu node /usr/local/bin/daemon-entrypoint.sh\n' \
+      > /usr/local/bin/daemon-init.sh && \
+    chmod +x /usr/local/bin/daemon-init.sh
+COPY docker/daemon-entrypoint.sh /usr/local/bin/daemon-entrypoint.sh
+RUN chmod +x /usr/local/bin/daemon-entrypoint.sh
+# Wrap openclaw to suppress stdout log noise that breaks Multica output parsing
+# Wrap openclaw to suppress stdout log noise and restore correct config path
+RUN mv /usr/local/bin/openclaw /usr/local/bin/openclaw-real && \
+    printf '#!/bin/sh\nexport OPENCLAW_CONFIG_PATH=/home/node/.openclaw/openclaw.json\nexec /usr/local/bin/openclaw-real --log-level silent "$@"\n' \
+      > /usr/local/bin/openclaw && \
+    chmod +x /usr/local/bin/openclaw
+WORKDIR /home/node
+RUN mkdir -p /home/node/multica_workspaces
+ENTRYPOINT ["/usr/local/bin/daemon-init.sh"]
