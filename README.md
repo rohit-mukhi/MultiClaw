@@ -5,7 +5,7 @@ To run this setup, you must follow these steps:
 
 Clone the repo of both the software:
 
-Use: git clone --depth 1 <github-link>
+Use: git clone --depth 1 github-link
 
 Then place the respective docker files in their places.
 
